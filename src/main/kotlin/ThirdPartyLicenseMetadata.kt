@@ -1,5 +1,5 @@
 /*
- * This file is part of OssLicensesParser.
+ * This file is part of Compass.
  * Copyright (C) 2024 Philipp Bobek <philipp.bobek@mailbox.org>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,4 @@
 
 package com.bobek.oss.licenses.parser
 
-fun main() {
-    println("Hello World!")
-}
+data class ThirdPartyLicenseMetadata(val libraryName: String, val offset: Long, val length: Int)
