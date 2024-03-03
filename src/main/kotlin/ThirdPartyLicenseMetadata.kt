@@ -1,5 +1,5 @@
 /*
- * This file is part of Compass.
+ * This file is part of OssLicensesParser.
  * Copyright (C) 2024 Philipp Bobek <philipp.bobek@mailbox.org>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,6 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.bobek.oss.licenses.parser
+package de.philipp_bobek.oss_licenses_parser
 
+/**
+ * Holds license metadata information obtained from the third_party_licenses_metadata file.
+ * This information is needed to extract the license content from the third_party_licenses file.
+ *
+ * @param libraryName The name of the library.
+ * @param offset The offset of bytes at which the license content starts.
+ * @param length The length of bytes that the license content has.
+ */
 data class ThirdPartyLicenseMetadata(val libraryName: String, val offset: Long, val length: Int)

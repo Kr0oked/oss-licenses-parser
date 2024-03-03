@@ -16,6 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.bobek.oss.licenses.parser
+package de.philipp_bobek.oss_licenses_parser
 
+/**
+ * Holds information of a license obtained from the third_party_licenses file.
+ *
+ * @param libraryName The name of the library.
+ * @param licenseContent The content of the license.
+ */
 data class ThirdPartyLicense(val libraryName: String, val licenseContent: String)
