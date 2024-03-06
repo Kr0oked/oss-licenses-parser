@@ -52,10 +52,7 @@ object OssLicensesParser {
         val licensesBytes = thirdPartyLicensesFile.readBytes()
 
         return parseMetadata(thirdPartyLicensesMetadataFile)
-            .map { metadata ->
-                licensesBytes.inputStream()
-                    .use { licensesFile -> parseLicense(metadata, licensesFile) }
-            }
+            .map { metadata -> parseLicense(licensesBytes, metadata) }
     }
 
     /**
@@ -70,14 +67,15 @@ object OssLicensesParser {
      */
     @JvmStatic
     fun parseMetadata(thirdPartyLicensesMetadataFile: InputStream): List<ThirdPartyLicenseMetadata> =
-        thirdPartyLicensesMetadataFile.reader()
-            .useLines { licenseMetadataLines ->
-                licenseMetadataLines
-                    .map(::getLicenseMetadata)
-                    .toList()
-            }
+        thirdPartyLicensesMetadataFile
+            .reader()
+            .useLines { licenseMetadataLines -> parseMetadata(licenseMetadataLines) }
 
-    @JvmStatic
+    private fun parseMetadata(metadataLines: Sequence<String>): List<ThirdPartyLicenseMetadata> =
+        metadataLines
+            .map(::getLicenseMetadata)
+            .toList()
+
     private fun getLicenseMetadata(metadataLine: String): ThirdPartyLicenseMetadata {
         val matchResult = licenseMetadataLineRegex.find(metadataLine)
             ?: throw IllegalArgumentException("Metadata line invalid: $metadataLine")
@@ -93,6 +91,11 @@ object OssLicensesParser {
 
         return ThirdPartyLicenseMetadata(libraryName, offset, length)
     }
+
+    private fun parseLicense(licensesBytes: ByteArray, metadata: ThirdPartyLicenseMetadata): ThirdPartyLicense =
+        licensesBytes
+            .inputStream()
+            .use { licensesFile -> parseLicense(metadata, licensesFile) }
 
     /**
      * Parses a license contained in the third_party_licenses file.
