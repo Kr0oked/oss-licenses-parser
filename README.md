@@ -11,8 +11,8 @@ The parsed data can then be used to display license information in your Android 
 The OSS Licenses Gradle Plugin gathers the licenses of libraries contained in your Android application at compile time.
 There is also the
 [play-services-oss-licenses](https://github.com/google/play-services-plugins/tree/master/oss-licenses-plugin#displaying-license-information)
-library to display these information.
-But while the plugin is open-source software developed under the Apache-2.0 license the library is not.
+library to display this information.
+But while the plugin is open-source software developed under the Apache-2.0 license, the library is not.
 It is closed-source published under the Android Software Development Kit License.
 Therefore, the closed-source library should not be used in open-source Android applications.
 
@@ -56,7 +56,7 @@ licenses.forEach { license -> println("License: ${license.libraryName} - ${licen
 
 ## Example
 
-For a real life example see the
+For a real life example, see the
 [ThirdPartyLicensesFragment](https://github.com/Kr0oked/Compass/blob/0b9f0bbe6137179129c9eba99497289bf54a4c17/app/src/main/java/com/bobek/compass/ThirdPartyLicensesFragment.kt)
 from the [Compass](https://github.com/Kr0oked/Compass) app.
 There the third-party licenses get displayed in a preference fragment.
