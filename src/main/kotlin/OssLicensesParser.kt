@@ -1,6 +1,6 @@
 /*
  * This file is part of OssLicensesParser.
- * Copyright (C) 2024 Philipp Bobek <philipp.bobek@mailbox.org>
+ * Copyright (C) 2025 Philipp Bobek <philipp.bobek@mailbox.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -33,10 +33,10 @@ object OssLicensesParser {
     /**
      * Parses all licenses contained in the third_party_licenses_metadata and third_party_licenses files.
      *
-     * Generally it is advised to use parseMetadata instead of this method if you only want to display a list of all
+     * Generally, it is advised to use parseMetadata instead of this method if you only want to display a list of all
      * libraries.
-     * Later on the parseLicense method can be used to display the license content of a specific library.
-     * This approach can help saving resources.
+     * Later on, the parseLicense method can be used to display the license content of a specific library.
+     * This approach can help save resources.
      *
      * @param thirdPartyLicensesMetadataFile Content of the third_party_licenses_metadata file.
      * @param thirdPartyLicensesFile Content of the third_party_licenses file.
@@ -56,9 +56,9 @@ object OssLicensesParser {
     }
 
     /**
-     * Parses the licenses metadata contained in the third_party_licenses_metadata file.
+     * Parses the license metadata contained in the third_party_licenses_metadata file.
      *
-     * Later on the parseLicense method can be used to display the license content of a specific library.
+     * Later on, the parseLicense method can be used to display the license content of a specific library.
      *
      * @param thirdPartyLicensesMetadataFile Content of the third_party_licenses_metadata file.
      * @return List of license metadata.
