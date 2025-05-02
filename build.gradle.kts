@@ -17,7 +17,7 @@
  */
 
 plugins {
-    kotlin("jvm") version "1.9.22"
+    kotlin("jvm") version "2.1.20"
     id("org.jetbrains.dokka") version "1.9.20"
     `java-library`
     `maven-publish`
