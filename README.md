@@ -26,7 +26,7 @@ Then add the OssLicensesParser dependency.
 
 ```kotlin
 dependencies {
-    implementation("de.philipp-bobek:oss-licenses-parser:1.0.0")
+    implementation("de.philipp-bobek:oss-licenses-parser:1.1.0")
 }
 ```
 
