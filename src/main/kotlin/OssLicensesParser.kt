@@ -82,13 +82,13 @@ object OssLicensesParser {
         val matchResult = licenseMetadataLineRegex.find(metadataLine)
             ?: throw IllegalArgumentException("Metadata line invalid: $metadataLine")
 
-        val offset = matchResult.groups[1]?.value?.toLongOrNull()
+        val offset = matchResult.groups["offset"]?.value?.toLongOrNull()
             ?: throw IllegalArgumentException("Metadata offset invalid: $metadataLine")
 
-        val length = matchResult.groups[2]?.value?.toIntOrNull()
+        val length = matchResult.groups["length"]?.value?.toIntOrNull()
             ?: throw IllegalArgumentException("Metadata length invalid: $metadataLine")
 
-        val libraryName = matchResult.groups[3]?.value
+        val libraryName = matchResult.groups["libraryName"]?.value
             ?: throw IllegalArgumentException("Metadata library name invalid: $metadataLine")
 
         return ThirdPartyLicenseMetadata(libraryName, offset, length)
