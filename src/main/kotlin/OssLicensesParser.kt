@@ -1,6 +1,6 @@
 /*
  * This file is part of OssLicensesParser.
- * Copyright (C) 2025 Philipp Bobek <philipp.bobek@mailbox.org>
+ * Copyright (C) 2026 Philipp Bobek <philipp.bobek@mailbox.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -59,6 +59,8 @@ object OssLicensesParser {
      * Parses the license metadata contained in the third_party_licenses_metadata file.
      *
      * Later on, the parseLicense method can be used to display the license content of a specific library.
+     * Each parseLicense call requires a freshly opened third_party_licenses stream positioned at the start of the file,
+     * because the metadata offset is an absolute byte position from the beginning of that file.
      *
      * @param thirdPartyLicensesMetadataFile Content of the third_party_licenses_metadata file.
      * @return List of license metadata.
@@ -100,8 +102,12 @@ object OssLicensesParser {
     /**
      * Parses a license contained in the third_party_licenses file.
      *
+     * The stream must be positioned at the start of the file (byte 0) on every call, because
+     * metadata.offset is an absolute byte position from the beginning of the file.
+     * Open a fresh stream for each call; do not reuse a stream across multiple parseLicense calls.
+     *
      * @param metadata License metadata obtained from the parseMetadata method.
-     * @param thirdPartyLicensesFile Content of the third_party_licenses file.
+     * @param thirdPartyLicensesFile Content of the third_party_licenses file, positioned at byte 0.
      * @return The license.
      * @throws java.io.IOException If an I/O error occurs.
      */
