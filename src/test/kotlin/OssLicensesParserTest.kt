@@ -68,25 +68,25 @@ class OssLicensesParserTest {
     }
 
     @Test
-    fun parseMetadataThrowsExceptionWhenOffsetInvalid() {
+    fun parseMetadataThrowsExceptionWhenOffsetOverflows() {
         val exception = assertThrows<IllegalArgumentException> {
             "123456789123456789123456789:13 libraryName".byteInputStream().use { metadata ->
                 OssLicensesParser.parseMetadata(metadata)
             }
         }
 
-        assertEquals("Metadata offset invalid: 123456789123456789123456789:13 libraryName", exception.message)
+        assertEquals("Metadata offset overflow: 123456789123456789123456789:13 libraryName", exception.message)
     }
 
     @Test
-    fun parseMetadataThrowsExceptionWhenLengthInvalid() {
+    fun parseMetadataThrowsExceptionWhenLengthOverflows() {
         val exception = assertThrows<IllegalArgumentException> {
             "0:123456789123456789123456789 libraryName".byteInputStream().use { metadata ->
                 OssLicensesParser.parseMetadata(metadata)
             }
         }
 
-        assertEquals("Metadata length invalid: 0:123456789123456789123456789 libraryName", exception.message)
+        assertEquals("Metadata length overflow: 0:123456789123456789123456789 libraryName", exception.message)
     }
 
     @Test
