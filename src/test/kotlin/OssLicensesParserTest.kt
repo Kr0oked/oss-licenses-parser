@@ -1,6 +1,6 @@
 /*
  * This file is part of OssLicensesParser.
- * Copyright (C) 2024 Philipp Bobek <philipp.bobek@mailbox.org>
+ * Copyright (C) 2026 Philipp Bobek <philipp.bobek@mailbox.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Assertions.assertIterableEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import java.io.EOFException
+import java.io.InputStream
 
 class OssLicensesParserTest {
 
@@ -107,6 +108,15 @@ class OssLicensesParserTest {
     }
 
     @Test
+    fun parseLicenseWithPartialSkipStream() {
+        val actual = PartialSkipInputStream(licensesContent.byteInputStream()).use { licenses ->
+            OssLicensesParser.parseLicense(licenseMetadataB, licenses)
+        }
+
+        assertEquals(licenseB, actual)
+    }
+
+    @Test
     fun parseLicenseThrowsExceptionWhenEndOfFileReachedBeforeOffset() {
         assertThrows<EOFException> {
             "123".byteInputStream().use { licenses ->
@@ -125,4 +135,10 @@ class OssLicensesParserTest {
             }
         }
     }
+}
+
+/** Wraps a stream so that skip() advances at most 1 byte per call, simulating a chunked stream. */
+private class PartialSkipInputStream(private val delegate: InputStream) : InputStream() {
+    override fun read(): Int = delegate.read()
+    override fun skip(n: Long): Long = delegate.skip(minOf(n, 1))
 }
