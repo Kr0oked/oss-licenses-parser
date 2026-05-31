@@ -117,6 +117,15 @@ class OssLicensesParserTest {
     }
 
     @Test
+    fun parseLicenseWithPartialReadStream() {
+        val actual = PartialReadInputStream(licensesContent.byteInputStream()).use { licenses ->
+            OssLicensesParser.parseLicense(licenseMetadataB, licenses)
+        }
+
+        assertEquals(licenseB, actual)
+    }
+
+    @Test
     fun parseLicenseThrowsExceptionWhenEndOfFileReachedBeforeOffset() {
         assertThrows<EOFException> {
             "123".byteInputStream().use { licenses ->
@@ -141,4 +150,10 @@ class OssLicensesParserTest {
 private class PartialSkipInputStream(private val delegate: InputStream) : InputStream() {
     override fun read(): Int = delegate.read()
     override fun skip(n: Long): Long = delegate.skip(minOf(n, 1))
+}
+
+/** Wraps a stream so that read() returns at most 1 byte per call, simulating a chunked stream. */
+private class PartialReadInputStream(private val delegate: InputStream) : InputStream() {
+    override fun read(): Int = delegate.read()
+    override fun read(b: ByteArray, off: Int, len: Int): Int = delegate.read(b, off, minOf(len, 1))
 }

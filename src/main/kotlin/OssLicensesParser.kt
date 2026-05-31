@@ -116,10 +116,18 @@ object OssLicensesParser {
         skipFully(thirdPartyLicensesFile, metadata.offset)
 
         val bytes = ByteArray(metadata.length)
-        val bytesRead = thirdPartyLicensesFile.read(bytes)
-        if (bytesRead != metadata.length) throw EOFException()
+        readFully(thirdPartyLicensesFile, bytes)
 
         return ThirdPartyLicense(metadata.libraryName, bytes.decodeToString())
+    }
+
+    private fun readFully(inputStream: InputStream, buffer: ByteArray) {
+        var offset = 0
+        while (offset < buffer.size) {
+            val read = inputStream.read(buffer, offset, buffer.size - offset)
+            if (read < 0) throw EOFException()
+            offset += read
+        }
     }
 
     private fun skipFully(inputStream: InputStream, bytesToSkip: Long) {
