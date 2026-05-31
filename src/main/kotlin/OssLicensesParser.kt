@@ -30,6 +30,8 @@ object OssLicensesParser {
 
     private val licenseMetadataLineRegex = """^(?<offset>\d+):(?<length>\d+) (?<libraryName>.+)$""".toRegex()
 
+    private const val MAX_LICENSE_LENGTH = 1_048_576 // 1 MiB
+
     /**
      * Parses all licenses contained in the third_party_licenses_metadata and third_party_licenses files.
      *
@@ -87,6 +89,10 @@ object OssLicensesParser {
 
         val length = matchResult.groups["length"]?.value?.toIntOrNull()
             ?: throw IllegalArgumentException("Metadata length invalid: $metadataLine")
+
+        require(length <= MAX_LICENSE_LENGTH) {
+            "Metadata length exceeds maximum of $MAX_LICENSE_LENGTH bytes: $metadataLine"
+        }
 
         val libraryName = matchResult.groups["libraryName"]?.value
             ?: throw IllegalArgumentException("Metadata library name invalid: $metadataLine")

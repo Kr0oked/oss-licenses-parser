@@ -90,6 +90,15 @@ class OssLicensesParserTest {
     }
 
     @Test
+    fun parseMetadataThrowsExceptionWhenLengthExceedsMaximum() {
+        assertThrows<IllegalArgumentException> {
+            "0:1048577 libraryName".byteInputStream().use { metadata ->
+                OssLicensesParser.parseMetadata(metadata)
+            }
+        }
+    }
+
+    @Test
     fun parseLicenseA() {
         val actual = licensesContent.byteInputStream().use { licenses ->
             OssLicensesParser.parseLicense(licenseMetadataA, licenses)
