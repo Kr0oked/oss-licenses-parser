@@ -54,7 +54,13 @@ object OssLicensesParser {
         val licensesBytes = thirdPartyLicensesFile.readBytes()
 
         return parseMetadata(thirdPartyLicensesMetadataFile)
-            .map { metadata -> parseLicense(licensesBytes, metadata) }
+            .map { metadata ->
+                if (metadata.offset > licensesBytes.size) throw EOFException()
+                val start = metadata.offset.toInt()
+                val end = start + metadata.length
+                if (end > licensesBytes.size) throw EOFException()
+                ThirdPartyLicense(metadata.libraryName, licensesBytes.decodeToString(start, end))
+            }
     }
 
     /**
@@ -99,11 +105,6 @@ object OssLicensesParser {
 
         return ThirdPartyLicenseMetadata(libraryName, offset, length)
     }
-
-    private fun parseLicense(licensesBytes: ByteArray, metadata: ThirdPartyLicenseMetadata): ThirdPartyLicense =
-        licensesBytes
-            .inputStream()
-            .use { licensesFile -> parseLicense(metadata, licensesFile) }
 
     /**
      * Parses a license contained in the third_party_licenses file.
