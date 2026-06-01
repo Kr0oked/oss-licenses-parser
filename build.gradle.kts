@@ -1,6 +1,6 @@
 /*
  * This file is part of OssLicensesParser.
- * Copyright (C) 2025 Philipp Bobek <philipp.bobek@mailbox.org>
+ * Copyright (C) 2026 Philipp Bobek <philipp.bobek@mailbox.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,8 +17,9 @@
  */
 
 plugins {
-    kotlin("jvm") version "2.1.20"
-    id("org.jetbrains.dokka") version "2.0.0"
+    kotlin("jvm") version "2.3.21"
+    id("org.jetbrains.dokka") version "2.2.0"
+    id("org.jetbrains.dokka-javadoc") version "2.2.0"
     `java-library`
     `maven-publish`
     signing
@@ -102,7 +103,7 @@ tasks.jar {
 }
 
 tasks.named<Jar>("javadocJar") {
-    from(tasks.named("dokkaJavadoc"))
+    from(tasks.named("dokkaGeneratePublicationJavadoc"))
 }
 
 tasks.test {
