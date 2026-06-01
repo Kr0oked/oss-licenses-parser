@@ -1,6 +1,6 @@
 /*
  * This file is part of OssLicensesParser.
- * Copyright (C) 2024 Philipp Bobek <philipp.bobek@mailbox.org>
+ * Copyright (C) 2026 Philipp Bobek <philipp.bobek@mailbox.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,4 +24,4 @@ package de.philipp_bobek.oss_licenses_parser
  * @param libraryName The name of the library.
  * @param licenseContent The content of the license.
  */
-data class ThirdPartyLicense(val libraryName: String, val licenseContent: String)
+public data class ThirdPartyLicense(val libraryName: String, val licenseContent: String)

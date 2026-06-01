@@ -1,6 +1,6 @@
 /*
  * This file is part of OssLicensesParser.
- * Copyright (C) 2024 Philipp Bobek <philipp.bobek@mailbox.org>
+ * Copyright (C) 2026 Philipp Bobek <philipp.bobek@mailbox.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -26,4 +26,4 @@ package de.philipp_bobek.oss_licenses_parser
  * @param offset The offset of bytes at which the license content starts.
  * @param length The length of bytes that the license content has.
  */
-data class ThirdPartyLicenseMetadata(val libraryName: String, val offset: Long, val length: Int)
+public data class ThirdPartyLicenseMetadata(val libraryName: String, val offset: Long, val length: Int)

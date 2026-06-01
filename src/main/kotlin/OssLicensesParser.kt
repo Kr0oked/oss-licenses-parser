@@ -26,7 +26,7 @@ import java.io.InputStream
  * @see <a href="https://github.com/google/play-services-plugins/tree/master/oss-licenses-plugin">
  *     OSS Licenses Gradle Plugin</a>
  */
-object OssLicensesParser {
+public object OssLicensesParser {
 
     private val licenseMetadataLineRegex = """^(?<offset>\d+):(?<length>\d+) (?<libraryName>.+)$""".toRegex()
 
@@ -47,7 +47,7 @@ object OssLicensesParser {
      * @throws IllegalArgumentException If content is invalid.
      */
     @JvmStatic
-    fun parseAllLicenses(
+    public fun parseAllLicenses(
         thirdPartyLicensesMetadataFile: InputStream,
         thirdPartyLicensesFile: InputStream
     ): List<ThirdPartyLicense> {
@@ -76,7 +76,7 @@ object OssLicensesParser {
      * @throws IllegalArgumentException If content is invalid.
      */
     @JvmStatic
-    fun parseMetadata(thirdPartyLicensesMetadataFile: InputStream): List<ThirdPartyLicenseMetadata> =
+    public fun parseMetadata(thirdPartyLicensesMetadataFile: InputStream): List<ThirdPartyLicenseMetadata> =
         thirdPartyLicensesMetadataFile
             .reader()
             .useLines { licenseMetadataLines -> parseMetadata(licenseMetadataLines) }
@@ -118,7 +118,7 @@ object OssLicensesParser {
      * @throws java.io.IOException If an I/O error occurs.
      */
     @JvmStatic
-    fun parseLicense(metadata: ThirdPartyLicenseMetadata, thirdPartyLicensesFile: InputStream): ThirdPartyLicense {
+    public fun parseLicense(metadata: ThirdPartyLicenseMetadata, thirdPartyLicensesFile: InputStream): ThirdPartyLicense {
         skipFully(thirdPartyLicensesFile, metadata.offset)
 
         val bytes = ByteArray(metadata.length)
