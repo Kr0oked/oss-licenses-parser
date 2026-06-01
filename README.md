@@ -30,6 +30,10 @@ dependencies {
 }
 ```
 
+The library is compiled to Java 8 bytecode.
+Android Gradle Plugin 3.0 and higher desugars Java 8 bytecode automatically,
+so no special configuration is required and any `minSdk` is supported.
+
 You can either parse the metadata separately and then parse a specific license content on demand like so:
 
 ```kotlin
